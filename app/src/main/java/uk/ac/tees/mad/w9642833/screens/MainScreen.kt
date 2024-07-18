@@ -53,7 +53,9 @@ fun MainScreen(navController: NavHostController) {
             })
         }) { innerPadding ->
             Column(Modifier.padding(innerPadding)) {
+
                 Text(text = "Home Screen")
+
             }
         }
     }
@@ -68,7 +70,9 @@ fun DrawerContent(navController: NavHostController) {
         NavigationDrawerItem(
             label = { Text(text = "Home") },
             selected = false,
-            onClick = { /*TODO*/ }
+            onClick = {
+
+            }
         )
         NavigationDrawerItem(
             label = { Text(text = "Crime Map") },
