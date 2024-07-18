@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import uk.ac.tees.mad.w9642833.screens.MainScreen
+import uk.ac.tees.mad.w9642833.screens.ReportCrimeScreen
 import uk.ac.tees.mad.w9642833.screens.SplashScreen
 import uk.ac.tees.mad.w9642833.ui.theme.CrimeAlertTheme
 
@@ -37,6 +38,8 @@ fun MyApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash_screen") {
         composable("splash_screen") { SplashScreen(navController = navController) }
-        composable("main_screen") { MainScreen() }
+        composable("main_screen") { MainScreen(navController) }
+        composable("report_crime_screen") { ReportCrimeScreen(navController) }
     }
+
 }

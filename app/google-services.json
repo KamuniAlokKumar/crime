@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "245264941160",
+    "project_id": "crimealert-5c693",
+    "storage_bucket": "crimealert-5c693.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245264941160:android:07b44cfb47828a93e13bdd",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.mad.w9642833"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2kpe3MfiBfoS3URBYnA0w01ktye0amVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

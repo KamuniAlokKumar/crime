@@ -21,11 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(navController: NavHostController) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -35,7 +36,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
             ModalDrawerSheet {
                 Text("Crime Alert", modifier = Modifier.padding(16.dp))
                 Divider()
-                DrawerContent()
+                DrawerContent(navController)
             }
         }) {
         Scaffold(topBar = {
@@ -62,7 +63,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun DrawerContent() {
+fun DrawerContent(navController: NavHostController) {
     Column(Modifier.fillMaxWidth()) {
         NavigationDrawerItem(
             label = { Text(text = "Home") },
@@ -92,7 +93,7 @@ fun DrawerContent() {
         NavigationDrawerItem(
             label = { Text(text = "Report a Crime") },
             selected = false,
-            onClick = { /*TODO*/ }
+            onClick = { navController.navigate("report_crime_screen") }
         )
     }
 }
