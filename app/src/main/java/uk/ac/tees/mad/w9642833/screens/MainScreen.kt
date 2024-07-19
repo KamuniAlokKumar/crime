@@ -64,23 +64,19 @@ fun MainScreen(navController: NavHostController) {
 }
 
 
+
 @Composable
 fun DrawerContent(navController: NavHostController) {
     Column(Modifier.fillMaxWidth()) {
         NavigationDrawerItem(
             label = { Text(text = "Home") },
-            selected = false,
+            selected = navController.currentBackStackEntry?.destination?.route == "main_screen",
             onClick = {
-
+                navController.navigate("home_screen")
             }
         )
         NavigationDrawerItem(
             label = { Text(text = "Crime Map") },
-            selected = false,
-            onClick = { /*TODO*/ }
-        )
-        NavigationDrawerItem(
-            label = { Text(text = "Notifications") },
             selected = false,
             onClick = { /*TODO*/ }
         )

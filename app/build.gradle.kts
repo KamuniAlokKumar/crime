@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.play.services.location)
     implementation ("com.google.accompanist:accompanist-permissions:0.35.1-alpha")
     implementation(libs.firebase.storage.ktx)
+    //coil
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -22,7 +22,7 @@ fun SplashScreen(navController: NavHostController) {
     var startMainScreen by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = true) {
-        delay(3000) // Delay for 3 seconds
+        delay(3000)
         startMainScreen = true
     }
 

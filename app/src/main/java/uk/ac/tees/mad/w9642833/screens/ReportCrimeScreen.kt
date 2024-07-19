@@ -14,8 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -69,7 +73,11 @@ fun ReportCrimeScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Report a Crime") })
+            TopAppBar(title = { Text("Report a Crime") }, navigationIcon = {
+                IconButton(onClick = { navHostController.popBackStack() }) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                }
+            })
         }
     ) {
         Column(Modifier.padding(it)) {

@@ -29,4 +29,18 @@ class FirestoreRepository {
             false
         }
     }
+
+    suspend fun getAllCrimeReports(): List<CrimeReport> {
+        val crimeReports = mutableListOf<CrimeReport>()
+        try {
+            val snapshot = firestore.collection("crime_reports").get().await()
+            snapshot.documents.map { document ->
+                println("${document.id} => ${document.data}")
+                crimeReports.add(document.toObject(CrimeReport::class.java)!!)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return crimeReports
+    }
 }
