@@ -90,9 +90,62 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp)
     ) {
+        item {
+            if (crimeReports.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Loading or No data found")
+                }
+            }
 
+        }
         items(crimeReports) { report ->
-            Text(text = "${report.title}")
+            CrimeReportItem(report)
+        }
+    }
+}
+
+@Composable
+fun CrimeReportItem(report: CrimeReport) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        elevation = CardDefaults.elevatedCardElevation(4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            if (report.imageUrl.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "No Image Available")
+                }
+            } else {
+                Image(
+                    painter = rememberAsyncImagePainter(report.imageUrl),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Type: ${report.title}", style = MaterialTheme.typography.titleSmall)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Description: ${report.details}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = "Location: ${report.location}", style = MaterialTheme.typography.bodySmall)
         }
     }
 }
