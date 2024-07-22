@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import uk.ac.tees.mad.w9642833.screens.CrimeMapScreen
 import uk.ac.tees.mad.w9642833.screens.MainScreen
 import uk.ac.tees.mad.w9642833.screens.ReportCrimeScreen
 import uk.ac.tees.mad.w9642833.screens.SplashScreen
@@ -40,6 +41,7 @@ fun MyApp(modifier: Modifier = Modifier) {
         composable("splash_screen") { SplashScreen(navController = navController) }
         composable("main_screen") { MainScreen(navController) }
         composable("report_crime_screen") { ReportCrimeScreen(navController) }
+        composable("crime_map_screen") { CrimeMapScreen(navController)}
     }
 
 }
