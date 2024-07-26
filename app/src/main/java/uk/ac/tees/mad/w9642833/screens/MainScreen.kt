@@ -173,11 +173,6 @@ fun DrawerContent(navController: NavHostController) {
             selected = false,
             onClick = { /*TODO*/ }
         )
-//        NavigationDrawerItem(
-//            label = { Text(text = "Criminal Background Check") },
-//            selected = false,
-//            onClick = { /*TODO*/ }
-//        )
         NavigationDrawerItem(
             label = { Text(text = "Report a Crime") },
             selected = false,
