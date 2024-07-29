@@ -12,8 +12,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,7 +34,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import uk.ac.tees.mad.w9642833.models.Criminal
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,6 +47,10 @@ fun WantedCriminalScreen(navController: NavHostController) {
         topBar = {
             TopAppBar(title = {
                 Text("Wanted Criminals")
+            }, navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                }
             })
         }
     ) { innerPadding ->
@@ -75,6 +82,13 @@ fun CriminalItem(criminal: Criminal) {
             .padding(vertical = 8.dp)
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
+            Image(
+                painter = rememberAsyncImagePainter(criminal.photoUrl),
+                contentDescription = null,
+                modifier = Modifier.size(64.dp),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(criminal.name, style = MaterialTheme.typography.titleSmall)
                 Text(criminal.description, style = MaterialTheme.typography.bodySmall)

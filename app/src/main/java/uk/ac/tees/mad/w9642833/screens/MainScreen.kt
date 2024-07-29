@@ -171,7 +171,9 @@ fun DrawerContent(navController: NavHostController) {
         NavigationDrawerItem(
             label = { Text(text = "Wanted Criminals") },
             selected = false,
-            onClick = { /*TODO*/ }
+            onClick = {
+                navController.navigate("wanted_criminal_screen")
+            }
         )
         NavigationDrawerItem(
             label = { Text(text = "Report a Crime") },
