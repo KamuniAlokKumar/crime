@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -24,25 +27,34 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import uk.ac.tees.mad.w9642833.models.Criminal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WantedCriminalScreen(navController: NavHostController) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
+    val criminals = remember { mutableListOf<Criminal>() }
     val filteredCriminals = criminals.filter {
         it.name.contains(searchQuery.text, ignoreCase = true)
     }
+    val focusManager = LocalFocusManager.current
+
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -60,7 +72,16 @@ fun WantedCriminalScreen(navController: NavHostController) {
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
                     label = { Text("Search") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        imeAction = ImeAction.Search
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            focusManager.clearFocus()
+                        }
+                    )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 LazyColumn {
@@ -81,95 +102,21 @@ fun CriminalItem(criminal: Criminal) {
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
-        Row(modifier = Modifier.padding(16.dp)) {
+        Row {
             Image(
                 painter = rememberAsyncImagePainter(criminal.photoUrl),
                 contentDescription = null,
-                modifier = Modifier.size(64.dp),
+
+                modifier = Modifier
+                    .size(88.dp)
+                    .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column {
-                Text(criminal.name, style = MaterialTheme.typography.titleSmall)
-                Text(criminal.description, style = MaterialTheme.typography.bodySmall)
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(criminal.name, style = MaterialTheme.typography.titleMedium)
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(criminal.description, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
 }
-
-val criminals = listOf(
-    Criminal(
-        1,
-        "John Doe",
-        "Wanted for armed robbery",
-        "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg"
-    ),
-    Criminal(
-        2,
-        "Jane Smith",
-        "Wanted for fraud",
-        "https://images.pexels.com/photos/582039/pexels-photo-582039.jpeg"
-    ),
-    Criminal(
-        3,
-        "Robert Johnson",
-        "Wanted for murder",
-        "https://images.pexels.com/photos/845457/pexels-photo-845457.jpeg"
-    ),
-    Criminal(
-        4,
-        "Emily Davis",
-        "Wanted for drug trafficking",
-        "https://images.pexels.com/photos/415263/pexels-photo-415263.jpeg"
-    ),
-    Criminal(
-        5,
-        "Michael Brown",
-        "Wanted for kidnapping",
-        "https://images.pexels.com/photos/819530/pexels-photo-819530.jpeg"
-    ),
-    Criminal(
-        6,
-        "Sarah Wilson",
-        "Wanted for burglary",
-        "https://images.pexels.com/photos/813940/pexels-photo-813940.jpeg"
-    ),
-    Criminal(
-        7,
-        "David Martinez",
-        "Wanted for assault",
-        "https://images.pexels.com/photos/886285/pexels-photo-886285.jpeg"
-    ),
-    Criminal(
-        8,
-        "Laura Garcia",
-        "Wanted for arson",
-        "https://images.pexels.com/photos/762084/pexels-photo-762084.jpeg"
-    ),
-    Criminal(
-        9,
-        "James Rodriguez",
-        "Wanted for human trafficking",
-        "https://images.pexels.com/photos/713520/pexels-photo-713520.jpeg"
-    ),
-    Criminal(
-        10,
-        "Linda Hernandez",
-        "Wanted for money laundering",
-        "https://images.pexels.com/photos/1729931/pexels-photo-1729931.jpeg"
-    ),
-    Criminal(
-        11,
-        "Charles Lee",
-        "Wanted for cybercrime",
-        "https://images.pexels.com/photos/2058659/pexels-photo-2058659.jpeg"
-    ),
-    Criminal(
-        13,
-        "Christopher Hall",
-        "Wanted for terrorism",
-        "https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg"
-    ),
-    Criminal(14, "Barbara Allen", "Wanted for tax evasion", "https://example.com/photo14.jpg"),
-
-    )

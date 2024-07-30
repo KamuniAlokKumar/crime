@@ -6,6 +6,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.tasks.await
 import uk.ac.tees.mad.w9642833.models.CrimeReport
+import uk.ac.tees.mad.w9642833.models.Criminal
 
 class FirestoreRepository {
     private val firestore = Firebase.firestore
@@ -42,5 +43,20 @@ class FirestoreRepository {
             e.printStackTrace()
         }
         return crimeReports
+    }
+
+    suspend fun getAllWantedCriminals(): List<Criminal> {
+        val criminals = mutableListOf<Criminal>()
+
+        try {
+            val snapshot = firestore.collection("criminals").get().await()
+            snapshot.documents.map { document ->
+                println("${document.id} => ${document.data}")
+                criminals.add(document.toObject(Criminal::class.java)!!)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return criminals
     }
 }
