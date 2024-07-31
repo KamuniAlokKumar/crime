@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,17 +38,18 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
 import uk.ac.tees.mad.w9642833.models.Criminal
+import uk.ac.tees.mad.w9642833.viewmodel.WantedCriminalViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WantedCriminalScreen(navController: NavHostController) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
-    val criminals = remember { mutableListOf<Criminal>() }
+    val viewModel: WantedCriminalViewModel = viewModel()
+    val criminals by viewModel.criminals.collectAsState()
     val filteredCriminals = criminals.filter {
         it.name.contains(searchQuery.text, ignoreCase = true)
     }
@@ -95,12 +95,16 @@ fun WantedCriminalScreen(navController: NavHostController) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CriminalItem(criminal: Criminal) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp),
+        onClick = {
+
+        }
     ) {
         Row {
             Image(
