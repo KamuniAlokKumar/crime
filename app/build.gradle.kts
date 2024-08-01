@@ -69,7 +69,13 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
     //coil
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    //maps
     implementation("com.google.maps.android:maps-compose:4.3.3")
+
+    implementation ("androidx.compose.material:material-icons-extended:1.6.2")
+
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

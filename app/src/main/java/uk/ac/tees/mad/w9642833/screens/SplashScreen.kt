@@ -14,6 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.delay
 import uk.ac.tees.mad.w9642833.R
 
@@ -27,8 +29,11 @@ fun SplashScreen(navController: NavHostController) {
     }
 
     if (startMainScreen) {
-        navController.navigate("main_screen") {
-            popUpTo("splash_screen") { inclusive = true }
+        val auth = Firebase.auth
+        val currentUser = auth.currentUser
+        val startScreen = if (currentUser != null) "main_screen" else "login_screen"
+        navController.navigate(startScreen) {
+            popUpTo(startScreen) { inclusive = true }
         }
     } else {
         Box(

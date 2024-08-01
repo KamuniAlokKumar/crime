@@ -20,7 +20,7 @@ class ReportCrimeViewModel : ViewModel() {
         crimeTitle: String,
         crimeDetails: String,
         location: String,
-        imageUri: Uri?
+        imageUri: ByteArray?
     ) {
         viewModelScope.launch {
             val imageUrl = imageUri?.let { repository.uploadImageToStorage(it) } ?: ""
